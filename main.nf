@@ -67,5 +67,5 @@ java -jar -Xmx20g \$PICARD_JAR IlluminaBasecallsToFastq \
 
 workflow 
   getFiles()
-  picard()
+//  picard()
 }
