@@ -19,7 +19,10 @@ def lane = 1
 process getFiles {
   conda 'rsync'
 
-  rsync 
+  output:
+  path '${params.run_dir_name}'
+
+  rsync -rav eb167@dtn.hpc.nyu.edu:${params.run_dir_path} . 
 
 }
 
@@ -62,6 +65,7 @@ java -jar -Xmx20g \$PICARD_JAR IlluminaBasecallsToFastq \
   """
 }
 
-workflow {
+workflow 
+  getFiles()
   picard()
 }
