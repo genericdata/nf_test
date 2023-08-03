@@ -18,6 +18,7 @@ def lane = 1
 
 process getFiles {
   conda 'rsync'
+  debug true
 
   output:
   path '${params.run_dir_name}'
@@ -28,13 +29,18 @@ process getFiles {
 
 
 process picard {
-
+  conda 'picard=2.27.5'
+  debug true
+  
+  input:
+    path x 
+  
   """
 read_structure=\$(python3 -c "
 import xml.dom.minidom
 
 read_structure = ''
-runinfo = xml.dom.minidom.parse('${params.run_dir_path}/RunInfo.xml')
+runinfo = xml.dom.minidom.parse('${x}/RunInfo.xml')
 nibbles = runinfo.getElementsByTagName('Read')
 
 for nib in nibbles:
@@ -44,15 +50,14 @@ print(read_structure)
 ")
 
 run_barcode=\$(python3 -c "
-print('${params.run_dir_path}'.split('_')[-2].lstrip('0'))
+print('${x}'.split('_')[-2].lstrip('0'))
 ")
-  module load picard/2.27.5
 
-java -jar -Xmx20g \$PICARD_JAR IlluminaBasecallsToFastq \
+picard -Xmx20g IlluminaBasecallsToFastq \
         LANE=1 \
         READ_STRUCTURE=\${read_structure} \
-        BASECALLS_DIR=${params.run_dir_path}/Data/Intensities/BaseCalls \
-        OUTPUT_PREFIX=${fcid}_l0${lane} \
+        BASECALLS_DIR=${x}/Data/Intensities/BaseCalls \
+        OUTPUT_PREFIX=/nextflow/work/picard_out \
         RUN_BARCODE=\${run_barcode} \
         MACHINE_NAME=${seq_id} \
         FLOWCELL_BARCODE=${fcid} \
@@ -67,5 +72,5 @@ java -jar -Xmx20g \$PICARD_JAR IlluminaBasecallsToFastq \
 
 workflow 
   getFiles()
-//  picard()
+//  picard(getFiles.out)
 }
