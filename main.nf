@@ -35,7 +35,6 @@ process test {
 
   """
   #export PATH=$PATH:/opt/miniconda3/bin
-  echo $FOO
   echo $HOSTNAME
   echo $PATH
   """
