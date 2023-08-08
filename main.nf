@@ -16,14 +16,6 @@ if (fcidPart.startsWith("A") || fcidPart.startsWith("B")) {
 def lane = 1
 
 process test {
-  //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
-  //executor = 'k8s'
-  //env.PATH="/opt/miniconda3/bin:$PATH"
-  //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
-  //pod env: 'FOO', value: 'bar'
-  containerOptions '--env PATH=/opt/miniconda3/bin:\$PATH'
-
-  //pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
   conda 'picard=2.27.5'
   debug true
 
@@ -34,21 +26,12 @@ process test {
     stdout
 
   """
-  #export PATH=$PATH:/opt/miniconda3/bin
   echo $HOSTNAME
   echo $PATH
   """
 }
 
 process picard {
-  //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
-  //executor = 'k8s'
-  //env.PATH="/opt/miniconda3/bin:$PATH"
-  //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
-  pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
-  conda 'picard=2.27.5'
-  debug true
-  
   input:
     path x 
   
@@ -88,6 +71,5 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow {
-  //picard(params.run_dir_path)
   test(params.run_dir_path)
 }
