@@ -25,6 +25,7 @@ process picard {
     path x 
   
   """
+hostname 
 read_structure=\$(python3 -c "
 import xml.dom.minidom
 
