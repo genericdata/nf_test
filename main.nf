@@ -19,7 +19,7 @@ process picard {
   //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
   //executor = 'k8s'
   //env.PATH="/opt/miniconda3/bin:$PATH"
-  pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
+  //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
 
   conda 'picard=2.27.5'
   debug true
