@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
-//def run_dir_path = "/nextflow/work/data"
+params.run_dir_path = ''
+
 def run_dir_name = new File(run_dir_path).getName()
 def parts = run_dir_name.split('_')
 def seq_id = parts[1]
