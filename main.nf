@@ -20,7 +20,8 @@ process test {
   //executor = 'k8s'
   //env.PATH="/opt/miniconda3/bin:$PATH"
   //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
-  pod env: 'FOO', value: 'bar'
+  //pod env: 'FOO', value: 'bar'
+  containerOptions '--env PATH=/opt/miniconda3/bin:\$PATH'
 
   //pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
   //conda 'picard=2.27.5'
