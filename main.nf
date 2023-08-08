@@ -58,6 +58,6 @@ picard -Xmx2g IlluminaBasecallsToFastq \
   """
 }
 
-workflow 
+workflow {
   picard(${params.run_dir_name})
 }
