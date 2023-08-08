@@ -29,7 +29,7 @@ process test {
   input:
     path x 
 
-  out:
+  output:
     stdout
 
   """
