@@ -20,15 +20,21 @@ process test {
   //executor = 'k8s'
   //env.PATH="/opt/miniconda3/bin:$PATH"
   //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
-  pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
+  pod env: 'FOO', value: 'bar'
+
+  //pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
   //conda 'picard=2.27.5'
   debug true
 
   input:
     path x 
 
+  out:
+    stdout
+
   """
   #export PATH=$PATH:/opt/miniconda3/bin
+  echo $FOO
   echo $HOSTNAME
   echo $PATH
   """
