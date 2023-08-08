@@ -23,7 +23,7 @@ process picard {
   
   input:
     path x 
-    //env PATH=/opt/miniconda3/bin:$PATH
+    env PATH="/opt/miniconda3/bin:$PATH"
   
   """
 export PATH=$PATH:/opt/miniconda3/bin
