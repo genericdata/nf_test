@@ -15,23 +15,38 @@ if (fcidPart.startsWith("A") || fcidPart.startsWith("B")) {
 
 def lane = 1
 
+process test {
+  //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
+  //executor = 'k8s'
+  //env.PATH="/opt/miniconda3/bin:$PATH"
+  //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
+  pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
+  conda 'picard=2.27.5'
+  debug true
+
+  input:
+    path x 
+
+  """
+  #export PATH=$PATH:/opt/miniconda3/bin
+  echo $HOSTNAME
+  echo $PATH
+  """
+
+
 process picard {
   //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
   //executor = 'k8s'
   //env.PATH="/opt/miniconda3/bin:$PATH"
   //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
   pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
-  //conda 'picard=2.27.5'
+  conda 'picard=2.27.5'
   debug true
   
   input:
     path x 
   
   """
-#export PATH=$PATH:/opt/miniconda3/bin
-echo $HOSTNAME
-echo $PATH
-exit 0
 read_structure=\$(python3 -c "
 import xml.dom.minidom
 
@@ -67,5 +82,6 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow {
-  picard(params.run_dir_path)
+  //picard(params.run_dir_path)
+  test(params.run_dir_path)
 }
