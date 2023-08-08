@@ -21,7 +21,7 @@ process test {
   //env.PATH="/opt/miniconda3/bin:$PATH"
   //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
   pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
-  conda 'picard=2.27.5'
+  //conda 'picard=2.27.5'
   debug true
 
   input:
