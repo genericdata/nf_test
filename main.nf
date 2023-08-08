@@ -21,14 +21,14 @@ process picard {
   //env.PATH="/opt/miniconda3/bin:$PATH"
   //pod env: 'PATH', value: '/opt/miniconda3/bin:$PATH'
   pod = [env: 'PATH', value: '/opt/miniconda3/bin:$PATH']
-  conda 'picard=2.27.5'
+  //conda 'picard=2.27.5'
   debug true
   
   input:
     path x 
   
   """
-export PATH=$PATH:/opt/miniconda3/bin
+#export PATH=$PATH:/opt/miniconda3/bin
 echo $HOSTNAME
 echo $PATH
 read_structure=\$(python3 -c "
