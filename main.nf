@@ -1,8 +1,6 @@
 nextflow.enable.dsl=2
 
-params.run_dir_path = ''
-
-def run_dir_name = new File(run_dir_path).getName()
+def run_dir_name = new File($params.run_dir_path).getName()
 def parts = run_dir_name.split('_')
 def seq_id = parts[1]
 
@@ -60,5 +58,5 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow {
-  picard(${params.run_dir_name})
+  picard($params.run_dir_path)
 }
