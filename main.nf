@@ -32,7 +32,7 @@ process test {
   echo $HOSTNAME
   echo $PATH
   """
-
+}
 
 process picard {
   //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
