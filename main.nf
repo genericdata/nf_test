@@ -16,6 +16,8 @@ if (fcidPart.startsWith("A") || fcidPart.startsWith("B")) {
 def lane = 1
 
 process test {
+  container = 'quay.io/condaforge/mambaforge:latest'
+  executor = 'k8s'
   conda 'picard=2.27.5'
   debug true
 
