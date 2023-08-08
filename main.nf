@@ -28,6 +28,8 @@ process test {
   """
   echo $HOSTNAME
   echo $PATH
+  which mamba
+  which conda
   """
 }
 
