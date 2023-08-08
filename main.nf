@@ -1,6 +1,6 @@
 nextflow.enable.dsl=2
 
-def run_dir_name = new File($params.run_dir_path).getName()
+def run_dir_name = new File(params.run_dir_path).getName()
 def parts = run_dir_name.split('_')
 def seq_id = parts[1]
 
