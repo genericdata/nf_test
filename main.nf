@@ -16,18 +16,6 @@ if (fcidPart.startsWith("A") || fcidPart.startsWith("B")) {
 
 def lane = 1
 
-process getFiles {
-  conda 'rsync'
-  debug true
-
-  output:
-  path '${params.run_dir_name}'
-
-  rsync -rav eb167@dtn.hpc.nyu.edu:${params.run_dir_path} . 
-
-}
-
-
 process picard {
   conda 'picard=2.27.5'
   debug true
@@ -71,6 +59,5 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow 
-//  getFiles()
   picard(${params.run_dir_name})
 }
