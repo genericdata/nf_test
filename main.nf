@@ -58,5 +58,5 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow {
-  picard($params.run_dir_path)
+  picard(params.run_dir_path)
 }
