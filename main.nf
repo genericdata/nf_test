@@ -18,12 +18,13 @@ def lane = 1
 process picard {
   //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
   //executor = 'k8s'
+  env.PATH="/opt/miniconda3/bin:$PATH"
+
   conda 'picard=2.27.5'
   debug true
   
   input:
     path x 
-    env PATH="/opt/miniconda3/bin:$PATH"
   
   """
 export PATH=$PATH:/opt/miniconda3/bin
