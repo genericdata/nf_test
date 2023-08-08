@@ -18,7 +18,7 @@ def lane = 1
 process picard {
   //container = 'image-registry.openshift-image-registry.svc:5000/cgsb-nextflow/miniconda3'
   //executor = 'k8s'
-  //conda 'picard=2.27.5'
+  conda 'picard=2.27.5'
   debug true
   
   input:
