@@ -25,6 +25,7 @@ process picard {
     path x 
   
   """
+export PATH=$PATH:/opt/miniconda3/bin
 echo $HOSTNAME
 echo $PATH
 read_structure=\$(python3 -c "
