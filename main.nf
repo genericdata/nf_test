@@ -31,6 +31,7 @@ process picard {
 #export PATH=$PATH:/opt/miniconda3/bin
 echo $HOSTNAME
 echo $PATH
+exit 0
 read_structure=\$(python3 -c "
 import xml.dom.minidom
 
