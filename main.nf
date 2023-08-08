@@ -1,6 +1,6 @@
 nextflow.enable.dsl=2
 
-def run_dir_path = "/scratch/eb167/gencore_tar/s/gencore/sequencers/NB502067/230523_NB502067_0551_AHG2CHAFX5"
+def run_dir_path = "/nextflow/work/data"
 def run_dir_name = new File(run_dir_path).getName()
 def parts = run_dir_name.split('_')
 def seq_id = parts[1]
@@ -53,7 +53,7 @@ run_barcode=\$(python3 -c "
 print('${x}'.split('_')[-2].lstrip('0'))
 ")
 
-picard -Xmx20g IlluminaBasecallsToFastq \
+picard -Xmx2g IlluminaBasecallsToFastq \
         LANE=1 \
         READ_STRUCTURE=\${read_structure} \
         BASECALLS_DIR=${x}/Data/Intensities/BaseCalls \
@@ -61,7 +61,7 @@ picard -Xmx20g IlluminaBasecallsToFastq \
         RUN_BARCODE=\${run_barcode} \
         MACHINE_NAME=${seq_id} \
         FLOWCELL_BARCODE=${fcid} \
-        NUM_PROCESSORS=${task.cpus} \
+        NUM_PROCESSORS=1 \
         APPLY_EAMSS_FILTER=false \
         INCLUDE_NON_PF_READS=false \
         MAX_READS_IN_RAM_PER_TILE=200000 \
@@ -71,6 +71,6 @@ picard -Xmx20g IlluminaBasecallsToFastq \
 }
 
 workflow 
-  getFiles()
-//  picard(getFiles.out)
+//  getFiles()
+  picard(${params.run_dir_name})
 }
