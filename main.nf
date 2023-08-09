@@ -15,29 +15,13 @@ if (fcidPart.startsWith("A") || fcidPart.startsWith("B")) {
 
 def lane = 1
 
-process test {
-  //container = 'quay.io/condaforge/mambaforge:latest'
-  //executor = 'k8s'
-  conda 'picard=2.27.5'
-  debug true
-
-  input:
-    path x 
-
-  output:
-    stdout
-
-  """
-  echo $HOSTNAME
-  echo $PATH
-  which mamba
-  which conda
-  """
-}
-
 process picard {
+  conda 'bioconda::picard=2.27.5'
+
   input:
     path x 
+
+  debug true
   
   """
 read_structure=\$(python3 -c "
@@ -75,5 +59,5 @@ picard -Xmx2g IlluminaBasecallsToFastq \
 }
 
 workflow {
-  test(params.run_dir_path)
+  picard(params.run_dir_path)
 }
