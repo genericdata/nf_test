@@ -45,7 +45,7 @@ picard -Xmx2g IlluminaBasecallsToFastq \
         LANE=1 \
         READ_STRUCTURE=\${read_structure} \
         BASECALLS_DIR=${x}/Data/Intensities/BaseCalls \
-        OUTPUT_PREFIX=/nextflow/work/picard_out \
+        OUTPUT_PREFIX=/nextflow/work/out/$(basename $x)/picard/ \
         RUN_BARCODE=\${run_barcode} \
         MACHINE_NAME=${seq_id} \
         FLOWCELL_BARCODE=${fcid} \
